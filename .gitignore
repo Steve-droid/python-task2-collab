@@ -1,2 +1,3 @@
 .task2venv/
 .env
+*.txt
