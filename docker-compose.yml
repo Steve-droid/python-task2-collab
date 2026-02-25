@@ -1,0 +1,28 @@
+services:
+  db:
+    image: mysql:8.0
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - data_task2:/var/lib/mysql/
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD",
+        ]
+      timeout: 3s
+      retries: 5
+  app:
+    build: .
+    ports:
+      - "80:5000"
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  data_task2:
