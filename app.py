@@ -7,6 +7,9 @@ app=Flask(__name__)
 def home():
     return render_template('index.html')
 
+@app.route('/<room>', methods=['GET'])
+def get_room(room='general'):
+    return render_template('index.html')
 
 @app.route('/api/chat/<room>', methods=['GET'])
 def get_chat(room):
